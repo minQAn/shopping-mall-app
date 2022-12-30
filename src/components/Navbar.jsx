@@ -5,16 +5,19 @@ import { BsFillPencilFill } from 'react-icons/bs';
 
 export default function Navbar() {
   return (
-    <header>
-      <Link to='/'>
+    <header className='flex justify-between border-b border-gray-300'>
+      <Link
+        to='/'
+        className='flex items-center text-4xl text-brand whitespace-nowrap'
+      >
         <FiShoppingBag />
         <h1>Shopping Mall App</h1>
       </Link>
 
-      <nav>
+      <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>Products</Link>
         <Link to='/carts'>Carts</Link>
-        <Link to='/products/new'>
+        <Link to='/products/new' className='text-xl'>
           <BsFillPencilFill />
         </Link>
         <button>Login</button>

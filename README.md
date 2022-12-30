@@ -8,4 +8,4 @@
 
 - React Router Dom
 - React Icons
--
+- Tailwindcss
