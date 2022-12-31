@@ -21,33 +21,25 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
-export async function login() {
-  return signInWithPopup(
+export function login() {
+  signInWithPopup(
     auth,
     provider.setCustomParameters({
       // to prevent auto login
       prompt: 'select_account', // https://developers.google.com/identity/openid-connect/openid-connect#authenticationuriparameters
     })
-  ) // return for promise
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-      return user;
-    })
-    .catch(console.error);
+  ).catch(console.error);
 }
 
-export async function logout() {
-  return signOut(auth)
+export function logout() {
+  signOut(auth)
     .then(() => {
       alert('Logged out successfully');
-      console.log(auth);
-      return null;
     })
     .catch(console.error);
 }
 
-// to check logged in or not
+// to check logged in or not, and when user changes, it operates
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, (user) => {
     callback(user);
