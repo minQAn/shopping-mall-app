@@ -6,6 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { getDatabase, ref, child, get } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,6 +21,9 @@ const app = initializeApp(firebaseConfig);
 // Google Authentication
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+
+// the get data from firease. used it for admin check
+const database = getDatabase(app);
 
 export function login() {
   signInWithPopup(
@@ -41,7 +45,25 @@ export function logout() {
 
 // to check logged in or not, and when user changes, it operates
 export function onUserStateChange(callback) {
-  onAuthStateChanged(auth, (user) => {
-    callback(user);
+  onAuthStateChanged(auth, async (user) => {
+    // 1. when logged in
+    const updatedUser = user ? await adminUser(user) : null;
+    callback(updatedUser);
   });
+}
+
+// to check whether the user is admin or not
+async function adminUser(user) {
+  // 2. check whether the user is admin or not
+  // 3. {...user, isAmin: true/false}
+  return get(ref(database, 'admins')) //
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        // console.log(admins);
+        const isAdmin = admins.includes(user.uid); // check the user is in the amind list
+        return { ...user, isAdmin }; // isAdmin: isAdmin(true/false)
+      }
+      return user; // if key(snapshot) 'admins' not exists in the database, just return original user
+    });
 }
