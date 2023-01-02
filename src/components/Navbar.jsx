@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiShoppingBag } from 'react-icons/fi';
 import { BsFillPencilFill } from 'react-icons/bs';
-import { login, logout, onUserStateChange } from '../api/firebase';
 import User from './User';
 import Button from './ui/Button';
+import { useAuthContext } from './context/AuthContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    onUserStateChange((user) => {
-      console.log(user);
-      setUser(user);
-    }); // same as (user => setUser(user))
-  }, []);
+  const { user, login, logout } = useAuthContext();
 
   return (
     <header className='flex justify-between border-b border-gray-300 p-3'>
@@ -28,8 +21,7 @@ export default function Navbar() {
 
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>Products</Link>
-        <Link to='/carts'>Carts</Link>
-
+        {user && <Link to='/carts'>Carts</Link>}
         {user && user.isAdmin && (
           <Link to='/products/new' className='text-xl'>
             <BsFillPencilFill />
