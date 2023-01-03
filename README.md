@@ -9,6 +9,7 @@
 - React Router Dom
 - React Icons
 - Tailwindcss
+- uuid
 
 ### Something I learned new from this project
 
