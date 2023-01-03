@@ -6,7 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
+import { emptyAuthFromLocalStorage } from '../components/localStorage/AuthLocalStorage';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -38,6 +39,7 @@ export function login() {
 export function logout() {
   signOut(auth)
     .then(() => {
+      emptyAuthFromLocalStorage();
       alert('Logged out successfully');
     })
     .catch(console.error);

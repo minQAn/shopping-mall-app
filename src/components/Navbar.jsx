@@ -7,7 +7,7 @@ import Button from './ui/Button';
 import { useAuthContext } from './context/AuthContext';
 
 export default function Navbar() {
-  const { user, login, logout } = useAuthContext();
+  const { auth, login, logout } = useAuthContext();
 
   return (
     <header className='flex justify-between border-b border-gray-300 p-3'>
@@ -21,15 +21,15 @@ export default function Navbar() {
 
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>Products</Link>
-        {user && <Link to='/carts'>Carts</Link>}
-        {user && user.isAdmin && (
+        {auth && <Link to='/carts'>Carts</Link>}
+        {auth && auth.isAdmin && (
           <Link to='/products/new' className='text-xl'>
             <BsFillPencilFill />
           </Link>
         )}
-        {user && <User user={user} />}
-        {!user && <Button text={'Login'} onClick={login} />}
-        {user && <Button text={'Logout'} onClick={logout} />}
+        {auth && <User auth={auth} />}
+        {!auth && <Button text={'Login'} onClick={login} />}
+        {auth && <Button text={'Logout'} onClick={logout} />}
       </nav>
     </header>
   );

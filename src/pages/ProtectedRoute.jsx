@@ -1,5 +1,4 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuthContext } from '../components/context/AuthContext';
 
@@ -10,15 +9,10 @@ import { useAuthContext } from '../components/context/AuthContext';
 // 5. only when the condition matches, passed children will show
 
 export default function ProtectedRoute({ children, requiredAdmin }) {
-  const { user } = useAuthContext();
+  const { auth } = useAuthContext();
+  console.log('ProtectedRoute: ', auth);
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log('ProtectedRroute: ', user);
-    }, 1000);
-  }, [user]);
-
-  if (!user || (requiredAdmin && !user.isAdmin)) {
+  if (!auth || (requiredAdmin && !auth.isAdmin)) {
     return <Navigate to='/' replace />; // replace=true: if you want to not save this path in history to prevent coming from unapproved user
   }
 

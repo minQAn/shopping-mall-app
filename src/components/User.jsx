@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function User({ user: { photoURL, displayName } }) {
+export default function User({ auth: { photoURL, displayName } }) {
   return (
     <div className='flex items-center shrink-0'>
       {/* shrink-0 is to prevent shrink the image*/}
