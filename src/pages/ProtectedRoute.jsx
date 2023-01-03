@@ -10,7 +10,7 @@ import { useAuthContext } from '../components/context/AuthContext';
 
 export default function ProtectedRoute({ children, requiredAdmin }) {
   const { auth } = useAuthContext();
-  console.log('ProtectedRoute: ', auth);
+  // console.log('ProtectedRoute: ', auth);
 
   if (!auth || (requiredAdmin && !auth.isAdmin)) {
     return <Navigate to='/' replace />; // replace=true: if you want to not save this path in history to prevent coming from unapproved user
