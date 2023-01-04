@@ -10,6 +10,7 @@
 - React Icons
 - Tailwindcss
 - uuid
+- @tanstack/react-query
 
 ### Something I learned new from this project
 

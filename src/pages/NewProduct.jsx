@@ -79,6 +79,14 @@ export default function NewProduct() {
         />
         <input
           type='text'
+          name='category'
+          value={product.category ?? ''}
+          placeholder='Category'
+          required
+          onChange={handleChange}
+        />
+        <input
+          type='text'
           name='description'
           value={product.description ?? ''}
           placeholder='Product Description'

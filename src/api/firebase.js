@@ -82,3 +82,12 @@ export async function addNewProduct(product, imageURL) {
     options: product.options.split(','),
   });
 }
+
+export async function getProducts() {
+  return get(ref(database, 'products')).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val()); // key is id. we need values from the database
+    }
+    return [];
+  });
+}
