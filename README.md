@@ -34,3 +34,12 @@ useEffect(() => {
   }); // same as (user => setUser(user))
 }, []);
 ```
+
+- To show uploaded image
+
+```jsx
+// In form in NewProduct component
+{
+  file && <img src={URL.createObjectURL(file)} alt='local file' />;
+}
+```
