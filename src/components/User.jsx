@@ -8,7 +8,7 @@ export default function User({ auth: { photoURL, displayName } }) {
         className='w-10 h-10 rounded-full mr-2'
         src={photoURL}
         alt={displayName}
-        referrerpolicy='no-referrer' // bc 403 forbbiden error
+        referrerPolicy='no-referrer' // bc 403 forbbiden error
       />
       <span className='hidden md:block'>{displayName}</span>
     </div>

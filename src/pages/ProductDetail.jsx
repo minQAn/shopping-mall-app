@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/ui/Button';
+import { useAuthContext } from '../context/AuthContext';
 
 // The product was placed in the state of the location
 // and the object was handed over from useNavigate's second parameter.
 
 export default function ProductDetail() {
+  const { uid } = useAuthContext();
   const {
     state: {
       product: { id, image, title, description, category, price, options },
@@ -17,7 +20,10 @@ export default function ProductDetail() {
     setSelected(e.target.value);
   };
 
-  const handleClick = (e) => {};
+  const handleClick = (e) => {
+    const product = { id, image, title, price, option: selected, quantity: 1 };
+    addOrUpdateToCart(uid, product);
+  };
 
   return (
     <>

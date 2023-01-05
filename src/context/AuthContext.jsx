@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { onUserStateChange, login, logout } from '../../api/firebase';
+import { onUserStateChange, login, logout } from '../api/firebase';
 import {
   getAuthFromLocalStorage,
   setAuthToLocalStorage,
-} from '../localStorage/AuthLocalStorage';
+} from '../components/localStorage/AuthLocalStorage';
 
 const AuthContext = createContext();
 
@@ -19,7 +19,9 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider
+      value={{ auth, uid: auth && auth.uid, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
