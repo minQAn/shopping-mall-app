@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
+import useProducts from '../hooks/useProducts';
 
 export default function NewProduct() {
   const [product, setProduct] = useState({});
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
-  const [success, setSuccess] = useState();
+  const [success, setSuccess] = useState(null);
+
+  const { addProduct } = useProducts();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -31,13 +33,26 @@ export default function NewProduct() {
     // 2. add a product to Firebase
     uploadImage(file)
       .then((url) => {
+        addProduct.mutate(
+          // mutate
+          { product, url },
+          {
+            onSuccess: () => {
+              setSuccess('Your product successfully registered.');
+              setTimeout(() => {
+                setSuccess(null);
+              }, 4000);
+            },
+          }
+        );
+
         // console.log(url);
-        addNewProduct(product, url).then(() => {
-          setSuccess('Your product successfully registered.');
-          setTimeout(() => {
-            setSuccess(null);
-          }, 4000);
-        });
+        // addNewProduct(product, url).then(() => {
+        //   setSuccess('Your product successfully registered.');
+        //   setTimeout(() => {
+        //     setSuccess(null);
+        //   }, 4000);
+        // });
       })
       .finally(() => setIsUploading(false));
   };

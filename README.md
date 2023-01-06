@@ -12,7 +12,13 @@
 - uuid
 - @tanstack/react-query
 
-### Something I learned new from this project
+<br />
+
+---
+
+<br />
+
+## Something I learned new from this project
 
 - replace
 
@@ -43,4 +49,20 @@ useEffect(() => {
 {
   file && <img src={URL.createObjectURL(file)} alt='local file' />;
 }
+```
+
+- useQuery and useMutation
+
+```jsx
+// NewProduct component
+
+// If used staleTime for the query, you have to 'invalidate' to update immediately using useMutation
+
+const queryClient = useQueryClient();
+const addProduct = useMutation(
+  ({ product, url }) => addNewProduct(product, url),
+  {
+    onSuccess: () => queryClient.invalidateQueries(['products']),
+  }
+);
 ```
