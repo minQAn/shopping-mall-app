@@ -1,5 +1,9 @@
 # Shopping Mall App Project
 
+An app that allows administrators to add product items and allows general users to store products in their own cart.
+
+<a href="https://peppy-dusk-a454bf.netlify.app/">Demo</a>
+
 ### Database
 
 - Firebase
