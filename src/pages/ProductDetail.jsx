@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/ui/Button';
-import { useAuthContext } from '../context/AuthContext';
+import useCart from '../hooks/useCart';
 
 // The product was placed in the state of the location
 // and the object was handed over from useNavigate's second parameter.
 
 export default function ProductDetail() {
-  const { uid } = useAuthContext();
+  const { addOrUpdateItem } = useCart();
+
   const {
     state: {
       product: { id, image, title, description, category, price, options },
     },
   } = useLocation();
+  const [success, setSuccess] = useState();
   const [selected, setSelected] = useState(options && options[0]);
 
   const handleSelect = (e) => {
@@ -22,7 +23,14 @@ export default function ProductDetail() {
 
   const handleClick = (e) => {
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateToCart(uid, product);
+    addOrUpdateItem.mutate(product, {
+      onSuccess: () => {
+        setSuccess('Added to Cart');
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
+      },
+    });
   };
 
   return (
@@ -52,6 +60,7 @@ export default function ProductDetail() {
                 ))}
             </select>
           </div>
+          {success && <p className='my-2 text-green-800'> ✅ {success}</p>}
           <Button text='Add to Carts' onClick={handleClick} />
         </div>
       </section>

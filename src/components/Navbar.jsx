@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiShoppingBag } from 'react-icons/fi';
+import { BiShoppingBag } from 'react-icons/bi';
 import { BsFillPencilFill } from 'react-icons/bs';
 import User from './User';
 import Button from './ui/Button';
@@ -16,12 +16,12 @@ export default function Navbar() {
         to='/'
         className='flex items-center text-4xl text-brand whitespace-nowrap'
       >
-        <FiShoppingBag />
+        <BiShoppingBag />
         <h1>Shopping Mall App</h1>
       </Link>
 
       <nav className='flex items-center gap-4 font-semibold'>
-        <Link to='/products'>Products</Link>
+        <Link to='/products'>Shop</Link>
         {auth && (
           <Link to='/carts'>
             <CartStatus />

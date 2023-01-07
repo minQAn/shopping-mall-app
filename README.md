@@ -66,3 +66,13 @@ const addProduct = useMutation(
   }
 );
 ```
+
+- Hooks: useCart, useProducts Hooks
+
+https://tkdodo.eu/blog/practical-react-query#create-custom-hooks
+
+You can keep the actual data fetching out of the ui, but co-located with your useQuery call.
+
+You can keep all usages of one query key (and potentially type definitions) in one file.
+
+If you need to tweak some settings or add some data transformation, you can do that in one place.
